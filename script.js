@@ -286,6 +286,9 @@ document.addEventListener('keydown', function (e) {
     });
   }
 
+  /* --- Google Sheets Apps Script endpoint --- */
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKk1xJHu6_4u4lUBgloDBqnEH7_FsbqTpyCGnHTrwkZ3Kl0Wk8CxbaNXzcDR4BSfkZbQ/exec';
+
   /* --- submit --- */
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -293,17 +296,35 @@ document.addEventListener('keydown', function (e) {
 
     if (!validate()) return;
 
-    // disable tombol sementara
+    var name    = getVal('wl-name');
+    var ig      = getVal('wl-ig').replace(/^@/, '');
+    var pkg     = getVal('wl-package');
+
+    // disable tombol & tampilkan loading
     submitBtn.disabled = true;
     submitBtn.textContent = 'Mendaftarkan...';
 
-    // simulasi proses (200ms) lalu buka modal
-    setTimeout(function () {
+    // kirim data ke Google Sheets
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, instagram: ig, package: pkg })
+    })
+    .then(function () {
+      // no-cors tidak bisa baca response body, tapi request terkirim
       form.reset();
       submitBtn.disabled = false;
       submitBtn.textContent = 'Daftar Waitlist Sekarang';
       openModal(thanksModal);
-    }, 200);
+    })
+    .catch(function () {
+      // fallback: tetap tampilkan modal meski ada network error
+      form.reset();
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Daftar Waitlist Sekarang';
+      openModal(thanksModal);
+    });
   });
 })();
 
