@@ -157,7 +157,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  padding: 16px 0;
+  padding: 0;
+  /* padding: 8px 0; */
   transition: background var(--transition), backdrop-filter var(--transition), border-color var(--transition);
   border-bottom: 1px solid transparent;
 }
@@ -181,7 +182,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .logo-img {
-  height: 36px;
+  height: 72px;
   width: auto;
   display: block;
 }
@@ -461,10 +462,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ---------- FEATURES ---------- */
 .features { background: var(--black); }
 
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+.features-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:24px;
+}
+
+@media (max-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .feature-card {
@@ -536,8 +543,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .aroma-card img {
-  width: 56px;
-  height: 56px;
+  /* width: 56px;
+  height: 56px; */
   object-fit: contain;
   transition: transform var(--transition);
 }
