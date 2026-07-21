@@ -235,18 +235,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: #FAF8F5;
+  /* color: var(--accent); */
   border: 1px solid rgba(170, 176, 135, 0.4);
   border-radius: 100px;
   padding: 6px 16px;
   margin-bottom: 28px;
-  background: var(--accent-glow);
+  background: #FF0000;
+  /* background: var(--accent-glow); */
 }
 
 .hero-badge::before {
   content: '';
   width: 8px; height: 8px;
-  background: var(--accent);
+  background: #FAF8F5;
+  /* background: var(--accent); */
   border-radius: 50%;
   animation: pulse 2s infinite;
 }
@@ -286,7 +289,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .hero-note {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--gray-mid);
 }
 
@@ -519,13 +522,29 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 .aroma-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px;
+  display:flex;
+  overflow-x:auto;
+  gap:16px;
+  scroll-snap-type:x mandatory;
+  /* display: grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px; */
+  /* grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px; */
+}
+
+@media (max-width:768px){
+
+.aroma-grid{
+    grid-template-columns:1fr;
+}
+
 }
 
 .aroma-card {
-  background: var(--black-card);
+  flex:0 0 300px;
+  scroll-snap-align:start;
+  /* background: var(--black-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 28px 16px;
@@ -535,6 +554,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   gap: 14px;
   transition: border-color var(--transition), transform var(--transition);
   cursor: default;
+  padding:32px 24px; */
+}
+
+@media(max-width:768px){
+
+  .aroma-card{
+      padding:20px 14px;
+  }
+
 }
 
 .aroma-card:hover {
@@ -545,12 +573,22 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .aroma-card img {
   /* width: 56px;
   height: 56px; */
+  width: 100%;
+  /* max-width: 320px; */
+  height: auto;
   object-fit: contain;
   transition: transform var(--transition);
 }
 
 .aroma-card:hover img {
   transform: scale(1.08);
+}
+
+@media (max-width:768px){
+
+  .aroma-card img{
+      max-width:180px;
+  }
 }
 
 .aroma-card span {
