@@ -27,7 +27,7 @@
   <!-- ===================== HERO ===================== -->
   <section class="hero" id="hero">
     <div class="container hero-inner">
-      <div class="hero-badge">Gabung Waitlist untuk Dapatkan Diskon Rp89.000<span style="font-size: large;">🎉</span></div>
+      <div class="hero-badge">Nikmati harga spesial khusus pelanggan yang bergabung lebih awal.<span style="font-size: large;">🎉</span></div>
       <h1 class="hero-title">
         Cuci Sepatu Hari Ini,
         <span class="accent">Pakai Lagi <br/> Esok Hari.</span>
@@ -43,6 +43,41 @@
     </div>
     <div class="hero-scroll-indicator">
       <span></span>
+    </div>
+  </section>
+
+  <!-- ===================== WAITLIST FORM (HERO) ===================== -->
+  <section class="section waitlist waitlist-hero" id="waitlist-hero">
+    <div class="container">
+      <div class="waitlist-box">
+        <form id="waitlist-form-hero" class="wl-form" novalidate>
+          <div class="form-group">
+            <label for="wl-name-hero">Nama Lengkap</label>
+            <input type="text" id="wl-name-hero" name="name" placeholder="cth. Budi Santoso" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label for="wl-ig-hero">Username Instagram</label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix">@</span>
+              <input type="text" id="wl-ig-hero" name="instagram" placeholder="sneakstherapy.id" required autocomplete="off" />
+            </div>
+          </div>
+
+          <!-- Privacy Policy Checkbox -->
+          <div class="form-group">
+            <label class="privacy-check">
+              <input type="checkbox" id="wl-privacy-hero" name="privacy" required />
+              <span class="privacy-check-label">
+                Saya menyetujui <button type="button" class="privacy-link" id="open-privacy-hero">Kebijakan Privasi</button> Sneaks Therapy dan bersedia dihubungi via Instagram saat layanan resmi diluncurkan.
+              </span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-accent btn-lg btn-full" id="wl-submit-hero">
+            Daftar Waitlist Sekarang
+          </button>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -192,8 +227,9 @@
       <!-- <p class="section-sub">Semua harga untuk 1 pasang dan sudah include pilihan bebas aromatic essential oil.</p> -->
       <div class="packages-grid">
 
-        <div class="package-card">
-          <div class="package-name">Subscription A</div>
+        <div class="package-card package-featured">
+          <div class="package-badge">Best Value</div>
+          <div class="package-name">Duo Care</div>
           <div class="package-price">Rp190.000<span>/3 bulan</span></div><br>
           <!-- <div class="package-for">Fabric &amp; Synthetic — Canvas, Mesh, Knit</div> -->
           <ul class="package-features">
@@ -203,12 +239,11 @@
             <li>✓ Antar-jemput gratis maksimal 10 km (minimal 2 pasang sepatu)</li>
             <li>✓ Dapat aromatherapy</li>
           </ul>
-          <a href="#waitlist" class="btn btn-outline btn-full">Gabung Waitlist</a>
+          <a href="#waitlist" class="btn btn-primary btn-full">Gabung Waitlist</a>
         </div>
 
-        <div class="package-card package-featured">
-          <div class="package-badge">Paling Diminati</div>
-          <div class="package-name">Subscription B</div>
+        <div class="package-card">
+          <div class="package-name">Quad Care</div>
           <div class="package-price">Rp335.000<span>/3 bulan</span></div><br>
           <!-- <div class="package-for">Premium Leather &amp; Formal — Kulit, Pantofel</div> -->
           <ul class="package-features">
@@ -218,7 +253,7 @@
             <li>✓ Antar-jemput gratis maksimal 10 km (minimal 2 pasang sepatu)</li>
             <li>✓ Dapat aromatherapy</li>
           </ul>
-          <a href="#waitlist" class="btn btn-primary btn-full">Gabung Waitlist</a>
+          <a href="#waitlist" class="btn btn-outline btn-full">Gabung Waitlist</a>
         </div>
 
         <!-- <div class="package-card">
@@ -257,7 +292,7 @@
         <div class="section-label">AKSES EKSKLUSIF</div>
         <h2 class="section-title">Jadilah yang Pertama Mendapatkan<br/><span class="accent">Akses Eksklusif</span></h2>
         <p class="section-sub">
-          Daftarkan diri Anda secara GRATIS dan jadilah yang pertama menikmati harga spesial launch, keuntungan berlangganan eksklusif, serta akses prioritas sebelum orang lain.
+          Daftarkan diri Anda tanpa perlu bayar dan jadilah yang pertama menikmati harga spesial launch, keuntungan berlangganan eksklusif, serta akses prioritas sebelum orang lain.
         </p>
         <form id="waitlist-form" class="wl-form" novalidate>
           <div class="form-group">

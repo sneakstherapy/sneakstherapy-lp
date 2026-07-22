@@ -181,7 +181,7 @@ document.addEventListener('keydown', function (e) {
 
   bindOverlayClose(modal);
 
-  if (openBtn)   openBtn.addEventListener('click',   function () { openModal(modal); });
+  // privacy buttons are now bound per-form in initWaitlistFormById
   if (btnClose)  btnClose.addEventListener('click',  function () { closeModal(modal); });
   if (btnClose2) btnClose2.addEventListener('click', function () { closeModal(modal); });
 })();
@@ -190,10 +190,14 @@ document.addEventListener('keydown', function (e) {
 /* ============================================================
    8. WAITLIST FORM
    ============================================================ */
-(function initWaitlistForm() {
-  var form        = document.getElementById('waitlist-form');
-  var submitBtn   = document.getElementById('wl-submit');
+
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKk1xJHu6_4u4lUBgloDBqnEH7_FsbqTpyCGnHTrwkZ3Kl0Wk8CxbaNXzcDR4BSfkZbQ/exec';
+
+function initWaitlistFormById(formId, nameId, igId, privacyId, submitId, privacyBtnId) {
+  var form        = document.getElementById(formId);
+  var submitBtn   = document.getElementById(submitId);
   var thanksModal = document.getElementById('modal-thanks');
+  var privacyModal = document.getElementById('modal-privacy');
 
   if (!form) return;
 
@@ -204,17 +208,14 @@ document.addEventListener('keydown', function (e) {
   }
 
   function setFieldError(inputEl, msg) {
-    // reset warna border jika dalam wrapper
     var target = inputEl.closest('.input-prefix-wrap') || inputEl;
     target.style.borderColor = '#e05555';
     inputEl.style.borderColor = '#e05555';
 
-    // hapus error lama
     var parent = inputEl.closest('.form-group');
     var old = parent && parent.querySelector('.field-error');
     if (old) old.remove();
 
-    // tambah error baru
     if (parent) {
       var errEl = document.createElement('span');
       errEl.className = 'field-error';
@@ -239,20 +240,20 @@ document.addEventListener('keydown', function (e) {
 
   function validate() {
     var valid   = true;
-    var name    = getVal('wl-name');
-    var ig      = getVal('wl-ig').replace(/^@/, '');
-    var privacy = document.getElementById('wl-privacy');
+    var name    = getVal(nameId);
+    var ig      = getVal(igId).replace(/^@/, '');
+    var privacy = document.getElementById(privacyId);
 
     if (!name || name.length < 2) {
-      setFieldError(document.getElementById('wl-name'), 'Nama tidak boleh kosong (minimal 2 karakter).');
+      setFieldError(document.getElementById(nameId), 'Nama tidak boleh kosong (minimal 2 karakter).');
       valid = false;
     }
 
     if (!ig) {
-      setFieldError(document.getElementById('wl-ig'), 'Username Instagram tidak boleh kosong.');
+      setFieldError(document.getElementById(igId), 'Username Instagram tidak boleh kosong.');
       valid = false;
     } else if (!/^[a-zA-Z0-9._]{1,30}$/.test(ig)) {
-      setFieldError(document.getElementById('wl-ig'), 'Username tidak valid. Gunakan huruf, angka, titik, atau underscore.');
+      setFieldError(document.getElementById(igId), 'Username tidak valid. Gunakan huruf, angka, titik, atau underscore.');
       valid = false;
     }
 
@@ -265,7 +266,7 @@ document.addEventListener('keydown', function (e) {
   }
 
   /* --- clear error saat user mulai mengetik --- */
-  ['wl-name', 'wl-ig'].forEach(function (id) {
+  [nameId, igId].forEach(function (id) {
     var el = document.getElementById(id);
     if (!el) return;
     el.addEventListener('input', function () {
@@ -277,7 +278,7 @@ document.addEventListener('keydown', function (e) {
     });
   });
 
-  var privacyEl = document.getElementById('wl-privacy');
+  var privacyEl = document.getElementById(privacyId);
   if (privacyEl) {
     privacyEl.addEventListener('change', function () {
       privacyEl.style.borderColor = '';
@@ -286,8 +287,11 @@ document.addEventListener('keydown', function (e) {
     });
   }
 
-  /* --- Google Sheets Apps Script endpoint --- */
-  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKk1xJHu6_4u4lUBgloDBqnEH7_FsbqTpyCGnHTrwkZ3Kl0Wk8CxbaNXzcDR4BSfkZbQ/exec';
+  /* --- privacy button inside this form --- */
+  var privacyBtn = document.getElementById(privacyBtnId);
+  if (privacyBtn && privacyModal) {
+    privacyBtn.addEventListener('click', function () { openModal(privacyModal); });
+  }
 
   /* --- submit --- */
   form.addEventListener('submit', function (e) {
@@ -296,15 +300,13 @@ document.addEventListener('keydown', function (e) {
 
     if (!validate()) return;
 
-    var name    = getVal('wl-name');
-    var ig      = getVal('wl-ig').replace(/^@/, '');
-    var pkg     = getVal('wl-package');
+    var name = getVal(nameId);
+    var ig   = getVal(igId).replace(/^@/, '');
+    var pkg  = getVal(formId + '-package') || '';
 
-    // disable tombol & tampilkan loading
     submitBtn.disabled = true;
     submitBtn.textContent = 'Mendaftarkan...';
 
-    // kirim data ke Google Sheets
     fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
@@ -312,20 +314,24 @@ document.addEventListener('keydown', function (e) {
       body: JSON.stringify({ name: name, instagram: ig, package: pkg })
     })
     .then(function () {
-      // no-cors tidak bisa baca response body, tapi request terkirim
       form.reset();
       submitBtn.disabled = false;
       submitBtn.textContent = 'Daftar Waitlist Sekarang';
       openModal(thanksModal);
     })
     .catch(function () {
-      // fallback: tetap tampilkan modal meski ada network error
       form.reset();
       submitBtn.disabled = false;
       submitBtn.textContent = 'Daftar Waitlist Sekarang';
       openModal(thanksModal);
     });
   });
+}
+
+/* inisialisasi kedua form */
+(function () {
+  initWaitlistFormById('waitlist-form',      'wl-name',      'wl-ig',      'wl-privacy',      'wl-submit',      'open-privacy');
+  initWaitlistFormById('waitlist-form-hero', 'wl-name-hero', 'wl-ig-hero', 'wl-privacy-hero', 'wl-submit-hero', 'open-privacy-hero');
 })();
 
 
