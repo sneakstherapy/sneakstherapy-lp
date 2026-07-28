@@ -317,12 +317,30 @@ function initWaitlistFormById(formId, nameId, igId, privacyId, submitId, privacy
       form.reset();
       submitBtn.disabled = false;
       submitBtn.textContent = 'Daftar Waitlist Sekarang';
+
+      // Push GA4 lead event ke dataLayer (GTM)
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'generate_lead',
+        form_id: formId,
+        form_name: 'Waitlist Form'
+      });
+
       openModal(thanksModal);
     })
     .catch(function () {
       form.reset();
       submitBtn.disabled = false;
       submitBtn.textContent = 'Daftar Waitlist Sekarang';
+
+      // Push GA4 lead event ke dataLayer (GTM) - fallback
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'generate_lead',
+        form_id: formId,
+        form_name: 'Waitlist Form'
+      });
+
       openModal(thanksModal);
     });
   });
