@@ -189,6 +189,51 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .logo span { color: var(--primary); }
 
+/* ---------- NAV BADGES ---------- */
+.nav-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.nav-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.nav-badge:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.navbar.scrolled .nav-badge {
+  background: rgba(0,0,0,0.06);
+  border-color: var(--border-blue);
+  color: var(--text);
+}
+
+.navbar.scrolled .nav-badge:hover {
+  background: rgba(0,0,0,0.12);
+}
+
+@media (max-width: 768px) {
+  .nav-badges {
+    display: none;
+  }
+}
+
 /* ---------- HERO ---------- */
 .hero {
   min-height: 100vh;
