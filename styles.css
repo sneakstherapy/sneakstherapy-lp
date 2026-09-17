@@ -692,6 +692,38 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   letter-spacing: 0.02em;
 }
 
+/* ---------- AREA COVERAGE ---------- */
+.area-coverage { background: var(--black-soft); }
+
+.area-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.area-item {
+  background: var(--black-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.area-item:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.area-note {
+  font-size: 14px;
+  color: var(--gray-mid);
+  text-align: center;
+}
+
 /* ---------- PACKAGES ---------- */
 .packages { background: var(--black); }
 
