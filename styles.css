@@ -205,33 +205,116 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--text);
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--white);
+  background: rgba(0,0,0,0.06);
+  border: 1px solid var(--border-blue);
   text-decoration: none;
   white-space: nowrap;
   transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .nav-badge:hover {
-  background: rgba(255,255,255,0.25);
-  border-color: rgba(255,255,255,0.4);
-}
-
-.navbar.scrolled .nav-badge {
-  background: rgba(0,0,0,0.06);
-  border-color: var(--border-blue);
-  color: var(--text);
-}
-
-.navbar.scrolled .nav-badge:hover {
   background: rgba(0,0,0,0.12);
+  border-color: var(--primary);
 }
 
 @media (max-width: 768px) {
   .nav-badges {
     display: none;
   }
+  .nav-cta-desktop {
+    display: none;
+  }
+}
+
+/* ---------- HAMBURGER ---------- */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: rgba(0,0,0,0.06);
+  border: 1px solid var(--border-blue);
+  cursor: pointer;
+  transition: background var(--transition);
+  padding: 0;
+}
+
+.nav-hamburger:hover {
+  background: rgba(0,0,0,0.12);
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .nav-hamburger {
+    display: flex;
+  }
+}
+
+/* ---------- MOBILE MENU ---------- */
+.mobile-menu {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease, border-color 0.35s ease;
+  border-top: 1px solid transparent;
+  background: rgba(240, 237, 232, 0.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.mobile-menu.open {
+  max-height: 400px;
+  border-color: var(--border-blue);
+}
+
+.mobile-menu-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px 20px;
+}
+
+.mobile-menu-link {
+  display: block;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  border-radius: var(--radius-sm);
+  transition: background var(--transition), color var(--transition);
+}
+
+.mobile-menu-link:hover {
+  background: var(--primary-glow);
+  color: var(--primary);
+}
+
+.mobile-menu-cta {
+  margin-top: 8px;
+  text-align: center;
 }
 
 /* ---------- HERO ---------- */

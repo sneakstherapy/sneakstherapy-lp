@@ -13,18 +13,57 @@
 'use strict';
 
 /* ============================================================
-   1. NAVBAR SCROLL
+   1. NAVBAR SCROLL + HAMBURGER MENU
    ============================================================ */
 (function initNavbar() {
-  const navbar = document.getElementById('navbar');
+  const navbar      = document.getElementById('navbar');
+  const hamburger   = document.getElementById('nav-hamburger');
+  const mobileMenu  = document.getElementById('mobile-menu');
   if (!navbar) return;
 
+  // Scroll effect
   function onScroll() {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   }
-
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
+  if (!hamburger || !mobileMenu) return;
+
+  // Toggle menu
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+  }
+
+  hamburger.addEventListener('click', function () {
+    if (mobileMenu.classList.contains('open')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+
+  // Tutup saat klik link di dalam menu
+  mobileMenu.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Tutup saat klik di luar navbar
+  document.addEventListener('click', function (e) {
+    if (!navbar.contains(e.target)) {
+      closeMenu();
+    }
+  });
 })();
 
 
